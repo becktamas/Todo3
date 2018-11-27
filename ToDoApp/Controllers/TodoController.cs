@@ -9,13 +9,6 @@ namespace ToDoApp.Controllers
 {
     public class TodoController : Controller
     {
-        public List<TodoItem> Items { get; private set; } = new List<TodoItem>
-            {
-                new TodoItem() { Name = "Só", Done = true },
-                new TodoItem() { Name = "Kifli", Done = false },
-                new TodoItem() { Name = "Tej", Done = false },
-                new TodoItem() { Name = "Banán", Done = true }
-            };
 
         public ActionResult Index()
         {
@@ -31,14 +24,14 @@ namespace ToDoApp.Controllers
             ViewBag.Lista = lista;//Beteszi az adatokat, nem erősen típusos
             ViewBag.Message = "Saját oldal.";
             //Items 
-            return View(Items);
+            return View(MyDb.Items);
         }
         public ActionResult Create(string Name)
         {
             if (!string.IsNullOrEmpty(Name))
             {
                 //adatok mentése, vissza az Indexre;
-                Items.Add(new TodoItem() { Name = Name, Done = false });
+                MyDb.Items.Add(new TodoItem() { Name = Name, Done = false });
                 return RedirectToAction("Index");
             }
             return View();
