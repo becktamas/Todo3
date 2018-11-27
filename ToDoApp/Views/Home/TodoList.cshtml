@@ -1,0 +1,22 @@
+﻿@model List<ToDoApp.Models.TodoItem>
+@{
+    ViewBag.Title = "TodoList";
+}
+
+<h2>Bevásárló lista</h2>
+@*Megjegyzés Ctrl-K-C*@
+<ol>
+    @foreach (var elemek in ViewBag.Lista)
+    {
+        <li>@elemek</li>
+    }
+</ol>
+<ul>
+    
+    @foreach (ToDoApp.Models.TodoItem elem in Model)
+    {
+       <li>
+           <input id="Checkbox1" type="checkbox" checked="@elem.Done" /> @elem.Name;
+       </li>
+    }
+</ul>
