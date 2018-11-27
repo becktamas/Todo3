@@ -9,23 +9,39 @@ namespace ToDoApp.Controllers
 {
     public class TodoController : Controller
     {
+        public List<TodoItem> Items { get; private set; } = new List<TodoItem>
+            {
+                new TodoItem() { Name = "Só", Done = true },
+                new TodoItem() { Name = "Kifli", Done = false },
+                new TodoItem() { Name = "Tej", Done = false },
+                new TodoItem() { Name = "Banán", Done = true }
+            };
+
         public ActionResult Index()
         {
             //Bevásárló lista
-            var lista = new List<string>();
-            lista.Add("Cukor");
-            lista.Add("Só");
-            lista.Add("Kenyér");
-            lista.Add("Hús");
-            lista.Add("Tej");
+            var lista = new List<string>
+            {
+                "Cukor",
+                "Só",
+                "Kenyér",
+                "Hús",
+                "Tej"
+            };
             ViewBag.Lista = lista;//Beteszi az adatokat, nem erősen típusos
             ViewBag.Message = "Saját oldal.";
-            var Items = new List<TodoItem>();
-            Items.Add(new TodoItem() { Name = "Só", Done = true });
-            Items.Add(new TodoItem() { Name = "Kifli", Done = false });
-            Items.Add(new TodoItem() { Name = "Tej", Done = false });
-            Items.Add(new TodoItem() { Name = "Banán", Done = true });
+            //Items 
             return View(Items);
+        }
+        public ActionResult Create(string Name)
+        {
+            if (!string.IsNullOrEmpty(Name))
+            {
+                //adatok mentése, vissza az Indexre;
+                Items.Add(new TodoItem() { Name = Name, Done = false });
+                return RedirectToAction("Index");
+            }
+            return View();
         }
     }
 }
